@@ -32,5 +32,8 @@ brew upgrade wirescale
 - Дефолтные пути демона — `/usr/local/var/wirescaled` (данные),
   `/usr/local/etc/wirescale.conf` (конфиг), `/Library/LaunchDaemons` (юнит);
   не зависят от prefix Homebrew (`/opt/homebrew` на Apple Silicon).
+- Версия формулы может отличаться от версии бинарей (`wirescale --version`):
+  ревизия сборки кодируется 4-м компонентом (0.0.2.1 > 0.0.2) — `brew upgrade`
+  подхватывает её без бампа версии приложения.
 - Формула обновляется на сборочной машине: `deploy/tap/update-formula.sh <ver>`
   (в репозитории wirescale).
