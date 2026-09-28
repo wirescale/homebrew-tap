@@ -7,11 +7,11 @@ class Wirescale < Formula
   on_macos do
     on_arm do
       url "https://tap.wirescale.org/wirescale-0.0.2-darwin-arm64.tar.gz"
-      sha256 "0f4afd26dcda0975c95cfeb812bec0152cf5a9b8b9bb8b776385e329dc5656e9"
+      sha256 "2e7d4788b62b9db4913018a97b88ec727ea643b5056b9d95aea8a71614243426"
     end
     on_intel do
       url "https://tap.wirescale.org/wirescale-0.0.2-darwin-amd64.tar.gz"
-      sha256 "8eab002a625939da90b54da0df205f6ddab7762239c886ff3389d2bb0dbffca8"
+      sha256 "d8e35e8a7225bf21fe1dcff350ac73344506929cd42be12232939b59e1eadf73"
     end
   end
 
