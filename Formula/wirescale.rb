@@ -17,14 +17,20 @@ class Wirescale < Formula
 
   def install
     bin.install "wirescaled", "wirescale"
+
+    # shell completion (bash/zsh/fish) — системные каталоги, подхватываются
+    # автоматически без правок в ~/.bashrc и ~/.zshrc.
+    (bash_completion/"wirescale").write Utils.safe_popen_read(bin/"wirescale", "completion", "bash")
+    (zsh_completion/"_wirescale").write Utils.safe_popen_read(bin/"wirescale", "completion", "zsh")
+    (fish_completion/"wirescale.fish").write Utils.safe_popen_read(bin/"wirescale", "completion", "fish")
   end
 
   def caveats
     <<~EOS
-      macOS-агент wirescale — только leaf/spoke: подключение к кластеру через
-      `wirescale peers join <TOKEN>`. Hub/observer — Linux-only.
+      macOS wirescale agent is leaf/spoke only: join a cluster via
+      `wirescale peers join <TOKEN>`. Hub/observer are Linux-only.
 
-      Демон (wirescaled) требует root. После установки:
+      The daemon (wirescaled) requires root. After install:
         sudo wirescaled service install
         sudo launchctl load /Library/LaunchDaemons/wirescale.plist
     EOS
