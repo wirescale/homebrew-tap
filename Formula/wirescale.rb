@@ -2,16 +2,16 @@
 class Wirescale < Formula
   desc "wirescale — hub-and-spoke VPN: daemon (wirescaled) + CLI (wirescale)"
   homepage "https://github.com/wirescale"
-  version "0.0.2.4"
+  version "0.0.2.5"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-0.0.2.4-darwin-arm64.tar.gz"
-      sha256 "6c50f518f0bf26af80e8cba02e78415285f09245ceafe05bf5fdb9b8ffeb1f2c"
+      url "https://tap.wirescale.org/wirescale-0.0.2.5-darwin-arm64.tar.gz"
+      sha256 "f2ff8ea09b8e987e8b626a59a22f97513f9db4cf0b0c020a016e6393cf775810"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-0.0.2.4-darwin-amd64.tar.gz"
-      sha256 "9947770a0b5689a2555662b405f365a7f91487007af608e62220079c5c7b1914"
+      url "https://tap.wirescale.org/wirescale-0.0.2.5-darwin-amd64.tar.gz"
+      sha256 "25fd2aee85cc583b9c04c62039d2c2c10ab16d6e1c6398a3203f13bfee1c1d73"
     end
   end
 
@@ -32,7 +32,7 @@ class Wirescale < Formula
 
       The daemon (wirescaled) requires root. After install:
         sudo wirescaled service install
-        # (service install writes and loads /Library/LaunchDaemons/wirescale.plist itself)
+        sudo launchctl load /Library/LaunchDaemons/wirescale.plist
     EOS
   end
 end
