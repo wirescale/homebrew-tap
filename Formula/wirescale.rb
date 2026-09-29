@@ -32,7 +32,7 @@ class Wirescale < Formula
 
       The daemon (wirescaled) requires root. After install:
         sudo wirescaled service install
-        sudo launchctl load /Library/LaunchDaemons/wirescale.plist
+        # (service install writes and loads /Library/LaunchDaemons/wirescale.plist itself)
     EOS
   end
 end

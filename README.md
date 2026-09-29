@@ -14,9 +14,10 @@ brew install wirescale
 Демон требует root (TUN, маршруты, pf) — после установки:
 
 ```sh
-sudo wirescale service install
-sudo launchctl load /Library/LaunchDaemons/wirescale.plist
+sudo wirescaled service install
 ```
+
+(юнит `/Library/LaunchDaemons/wirescale.plist` и его запуск `service install` выполняет сам)
 
 ## Обновление
 
