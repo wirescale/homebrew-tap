@@ -2,16 +2,16 @@
 class Wirescale < Formula
   desc "wirescale — hub-and-spoke VPN: daemon (wirescaled) + CLI (wirescale)"
   homepage "https://github.com/wirescale"
-  version "0.0.3.4"
+  version "0.0.3.5"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-0.0.3.4-darwin-arm64.tar.gz"
-      sha256 "69186e5618323a21a2deed8c993b720f86dc631767e2e5daffd53b230eeba02a"
+      url "https://tap.wirescale.org/wirescale-0.0.3.5-darwin-arm64.tar.gz"
+      sha256 "7c47a24da1119bc874a220688675b4dcf086808b88def1e80d30b6e56c659dad"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-0.0.3.4-darwin-amd64.tar.gz"
-      sha256 "cfe78d15a64c263f8f454614539fc9f0f3ed28291584fae5ffc157f7a10f7960"
+      url "https://tap.wirescale.org/wirescale-0.0.3.5-darwin-amd64.tar.gz"
+      sha256 "5fedbf0853893cc43d3157969941ee8c63539cbd89a71b7403eec072c04a5e87"
     end
   end
 
