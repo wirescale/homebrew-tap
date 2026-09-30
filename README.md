@@ -26,6 +26,23 @@ brew update
 brew upgrade wirescale
 ```
 
+## GUI: wirescale-ui (cask)
+
+Menu-bar клиент (Tauri v2 + Svelte 5). Требует установленной формулы `wirescale`
+(AC-UI-13: cask тянет формулу автоматически через `depends_on`).
+
+```sh
+brew install --cask wirescale-ui
+```
+
+Caveats:
+
+- Cask пока **не опубликован**: `.app` собирается на macOS (`tauri build --bundles app,dmg`),
+  тарболлы и sha256 появятся после вехи B3. Генератор: `release/tap/update-cask.sh <ver>`.
+- Приложение подписано ad-hoc (Gatekeeper): первый запуск — правой кнопкой →
+  «Открыть», затем подтвердить. Полная notarization — отдельная веха.
+- Демон запускается через службу: `sudo wirescaled service install`.
+
 ## Примечания
 
 - macOS-агент — только leaf/spoke (`wirescale peers join <TOKEN>`);
