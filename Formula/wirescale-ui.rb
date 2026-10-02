@@ -2,7 +2,7 @@
 class WirescaleUi < Formula
   desc "menu-bar клиент wirescale (Tauri v2 + Svelte 5)"
   homepage "https://github.com/wirescale"
-  version "0.1.0.6"
+  version "0.1.0.7"
 
   # Сборка GUI пока только под Apple Silicon (aarch64-apple-darwin).
   depends_on arch: :arm64
@@ -10,12 +10,17 @@ class WirescaleUi < Formula
   depends_on "wirescale"
 
   on_macos do
-    url "https://tap.wirescale.org/wirescale-ui-0.1.0.6-darwin-arm64.tar.gz"
-    sha256 "deb759b287be86d55a6fcd686608601505e3b7328e58eaed261472165d0af6ed"
+    url "https://tap.wirescale.org/wirescale-ui-0.1.0.7-darwin-arm64.tar.gz"
+    sha256 "0782aee074187ae638ac824ada5c6716daa90cce2fe08416b7de61898ef8f7ef"
   end
 
   def install
-    libexec.install "Wirescale.app"
+    # Тарболл содержит ЕДИНСТВЕННЫЙ каталог Wirescale.app/. Homebrew при
+    # стейджинге cd'ится внутрь единственного каталога (AbstractDownloadStrategy
+    # #chdir), поэтому .app — либо ./Wirescale.app (2+ записей в тарболле),
+    # либо текущий каталог (типичный случай).
+    app = File.directory?("Wirescale.app") ? "Wirescale.app" : Dir.pwd
+    libexec.install app
     (bin/"wirescale-ui").write <<~SH
       #!/bin/sh
       exec open "#{opt_libexec}/Wirescale.app" "$@"
