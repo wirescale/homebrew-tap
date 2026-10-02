@@ -11,47 +11,90 @@ brew tap wirescale/wirescale
 brew install wirescale
 ```
 
-Демон требует root (TUN, маршруты, pf) — после установки:
+Демон требует root (TUN, маршруты, pf) — запусти его как Homebrew-сервис:
 
 ```sh
-sudo wirescaled service install
+sudo brew services start wirescale
 ```
 
-(юнит `/Library/LaunchDaemons/wirescale.plist` и его запуск `service install` выполняет сам)
+(юнит генерирует Homebrew в `/Library/LaunchDaemons/sh.brew.wirescale.plist`;
+`sudo brew services stop|restart wirescale` — остановка/перезапуск)
 
 ## Обновление
 
 ```sh
 brew update
 brew upgrade wirescale
+sudo brew services restart wirescale   # перезапустить демон новой версии
 ```
 
-## GUI: wirescale-ui (cask)
+## Удаление
 
-Menu-bar клиент (Tauri v2 + Svelte 5). Требует установленной формулы `wirescale`
-(AC-UI-13: cask тянет формулу автоматически через `depends_on`).
+Homebrew **не останавливает сервисы при `brew uninstall`** — останови сервис
+явно, иначе демон с KeepAlive продолжит работать:
 
 ```sh
-brew install --cask wirescale-ui
+sudo brew services stop wirescale
+brew uninstall wirescale
 ```
 
-Caveats:
+Старый ручной юнит (`wirescaled service install`, label `wirescale`) Homebrew не
+видит. При переходе на brew services сними его:
 
-- Cask пока **не опубликован**: `.app` собирается на macOS (`tauri build --bundles app,dmg`),
-  тарболлы и sha256 появятся после вехи B3. Генератор: `release/tap/update-cask.sh <ver>`.
-- Приложение подписано ad-hoc (Gatekeeper): первый запуск — правой кнопкой →
-  «Открыть», затем подтвердить. Полная notarization — отдельная веха.
-- Демон запускается через службу: `sudo wirescaled service install`.
+```sh
+sudo wirescaled service remove
+```
+
+## GUI: wirescale-ui (формула)
+
+Menu-bar клиент (Tauri v2 + Svelte 5), только Apple Silicon. Требует демон
+`wirescale` (тянется автоматически через `depends_on`).
+
+```sh
+brew install wirescale-ui   # приложение, открыть: wirescale-ui
+```
+
+`.app` кладётся в prefix Homebrew (`$(brew --prefix)/opt/wirescale-ui/…`), запуск —
+команда `wirescale-ui`. Не переноси `.app` в `/Applications` руками: `brew upgrade`
+обновляет копию в prefix, а перенесённая останется старой.
+
+Формула, а не cask: Homebrew сам ставит `com.apple.quarantine` на cask-загрузки, а
+подписи Developer ID у нас нет (нет Apple Developer Program) — cask установил бы
+«повреждённое» приложение. Формулы карантином не помечаются. Подробности —
+`release/tap/update-gui-formula.sh`.
+
+Формула появляется в тапе после первого прогона `release/ci/publish-tap.sh`
+(генератор: `release/tap/update-gui-formula.sh <ver>`).
+
+## GUI без Homebrew
+
+Тот же `.app` ставится в `~/Applications` curl-инсталлером с
+`https://tap.wirescale.org/` (файл обновляется на каждом релизе, версия и
+sha256 зашиты в него):
+
+```sh
+curl -fsSL https://tap.wirescale.org/install-wirescale-ui.sh | bash
+```
+
+curl не ставит карантин, поэтому Gatekeeper приложение не блокирует. Инсталлер
+перезаписывает `~/Applications/Wirescale.app` (закрой приложение перед запуском).
+Если ты скачивал `.app` браузером и macOS ругается на «повреждённое» приложение —
+сними карантин: `xattr -dr com.apple.quarantine ~/Applications/Wirescale.app`.
+
 
 ## Примечания
 
 - macOS-агент — только leaf/spoke (`wirescale peers join <TOKEN>`);
   hub/observer — Linux-only.
 - Дефолтные пути демона — `/usr/local/var/wirescaled` (данные),
-  `/usr/local/etc/wirescale.conf` (конфиг), `/Library/LaunchDaemons` (юнит);
+  `/usr/local/etc/wirescale.conf` (конфиг),
+  `/Library/LaunchDaemons/sh.brew.wirescale.plist` (юнит Homebrew-сервиса);
+  сокет LocalControl — `/var/run/wirescaled.sock` (macOS и Linux);
   не зависят от prefix Homebrew (`/opt/homebrew` на Apple Silicon).
 - Версия формулы может отличаться от версии бинарей (`wirescale --version`):
   ревизия сборки кодируется 4-м компонентом (0.0.2.1 > 0.0.2) — `brew upgrade`
   подхватывает её без бампа версии приложения.
 - Формула обновляется на сборочной машине: `release/tap/update-formula.sh <ver>`
-  (в репозитории release).
+  (в репозитории release), GUI-формула — `release/tap/update-gui-formula.sh <ver>`.
+- Внутри `.app` версия = semver из `VERSION` (например 0.1.0), а ревизия сборки
+  лежит в Finder Get Info (Build) — так же, как `wirescale --version`.
