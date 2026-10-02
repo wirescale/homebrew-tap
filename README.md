@@ -20,6 +20,11 @@ sudo brew services start wirescale
 (юнит генерирует Homebrew в `/Library/LaunchDaemons/sh.brew.wirescale.plist`;
 `sudo brew services stop|restart wirescale` — остановка/перезапуск)
 
+`sudo brew services start` chown'ит keg в `root:admin` + sticky (чтобы юзер не
+подменил бинарь root-сервиса). Демон запускается через обёртку
+`wirescale-service-wrap`: при каждом старте она возвращает владение твоему
+пользователю, поэтому `brew upgrade`/`brew uninstall` работают без `sudo rm`.
+
 ## Обновление
 
 ```sh
