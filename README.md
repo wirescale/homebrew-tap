@@ -35,8 +35,9 @@ sudo brew services restart wirescale   # перезапустить демон �
 
 ## Удаление
 
-Homebrew **не останавливает сервисы при `brew uninstall`** — останови сервис
-явно, иначе демон с KeepAlive продолжит работать:
+Homebrew **не останавливает сервисы при `brew uninstall`** — но на macOS демон
+сам следит за своим бинарём: после удаления keg он завершается и снимает
+launchd-юнит в течение ≤30 секунд. Для мгновенной остановки:
 
 ```sh
 sudo brew services stop wirescale
