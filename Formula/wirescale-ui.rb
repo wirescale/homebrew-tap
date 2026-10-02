@@ -2,7 +2,7 @@
 class WirescaleUi < Formula
   desc "menu-bar клиент wirescale (Tauri v2 + Svelte 5)"
   homepage "https://github.com/wirescale"
-  version "0.1.0.8"
+  version "0.1.0.9"
 
   # Сборка GUI пока только под Apple Silicon (aarch64-apple-darwin).
   depends_on arch: :arm64
@@ -10,17 +10,16 @@ class WirescaleUi < Formula
   depends_on "wirescale"
 
   on_macos do
-    url "https://tap.wirescale.org/wirescale-ui-0.1.0.8-darwin-arm64.tar.gz"
-    sha256 "51878e9880979f27dfc32070f4aa424dc1949608491def3c3589b77db28aec7a"
+    url "https://tap.wirescale.org/wirescale-ui-0.1.0.9-darwin-arm64.tar.gz"
+    sha256 "3da4f4184424702bca23e6302bc9dbb8d655a44a4ffef9de62f1bb21ce4ef1e9"
   end
 
   def install
-    # Тарболл содержит ЕДИНСТВЕННЫЙ каталог Wirescale.app/. Homebrew при
-    # стейджинге cd'ится внутрь единственного каталога (AbstractDownloadStrategy
-    # #chdir), поэтому текущий каталог install — это сам .app. Ставим из корня
-    # распаковки относительным путём: mv текущего каталога (Dir.pwd) в песочнице
-    # Homebrew падает (ENOENT), а установка обычного дочернего каталога — нет.
-    Dir.chdir("..") unless File.directory?("Wirescale.app")
+    # Тарболл: wirescale-ui-<ver>/Wirescale.app — единственный каталог, Homebrew
+    # cd'ится в него при стейджинге (AbstractDownloadStrategy #chdir), поэтому
+    # .app лежит в текущем каталоге. Обёртка нужна, чтобы buildpath оставался
+    # существующим каталогом после переноса приложения в keg: если buildpath —
+    # сам .app, install_metafiles падает ENOENT (dir_initialize).
     libexec.install "Wirescale.app"
     (bin/"wirescale-ui").write <<~SH
       #!/bin/sh
