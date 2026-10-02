@@ -2,17 +2,28 @@
 class Wirescale < Formula
   desc "wirescale — hub-and-spoke VPN: daemon (wirescaled) + CLI (wirescale)"
   homepage "https://github.com/wirescale"
-  version "0.0.3.7"
+  version "0.0.3.6"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-0.0.3.7-darwin-arm64.tar.gz"
-      sha256 "41fd018512b48261212f6333a26296e636cc9233f1c88c2fb69549e894333eef"
+      url "https://tap.wirescale.org/wirescale-0.0.3.6-darwin-arm64.tar.gz"
+      sha256 "35b140d7db69a48d1eb9b1c38b97700d8198608794f7ee12d4e86562e96556c2"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-0.0.3.7-darwin-amd64.tar.gz"
-      sha256 "2918770d751fa6178bfc3f0db87e74da7487f00f5f3a501ac43ba2cfbb1fd910"
+      url "https://tap.wirescale.org/wirescale-0.0.3.6-darwin-amd64.tar.gz"
+      sha256 "f28e4c8098f9964399f8dfe9b7408bb9e4ece27838d9dd639fe88689ca66802a"
     end
+  end
+
+  # Демон — Homebrew-сервис (root): sudo brew services start wirescale.
+  # Юнит генерирует Homebrew в /Library/LaunchDaemons/sh.brew.wirescale.plist
+  # (эквивалент plist от `wirescaled service install`, label wirescale);
+  # brew services stop/restart и uninstall-шаг ниже в caveats.
+  service do
+    run [opt_bin/"wirescaled", "serve"]
+    require_root true
+    keep_alive true
+    environment_variables OSTYPE: "darwin"
   end
 
   def install
@@ -30,9 +41,17 @@ class Wirescale < Formula
       macOS wirescale agent is leaf/spoke only: join a cluster via
       `wirescale peers join <TOKEN>`. Hub/observer are Linux-only.
 
-      The daemon (wirescaled) requires root. After install:
-        sudo wirescaled service install
-        sudo launchctl load /Library/LaunchDaemons/wirescale.plist
+      The daemon (wirescaled) requires root. Start it with Homebrew services:
+        sudo brew services start wirescale
+
+      Before uninstalling, stop the service first (brew uninstall does not):
+        sudo brew services stop wirescale
+        brew uninstall wirescale
+
+      Upgrading from the old manual unit (wirescaled service install)? Remove
+      the old unit first, then start via brew services:
+        sudo wirescaled service remove
+        sudo brew services start wirescale
     EOS
   end
 end
