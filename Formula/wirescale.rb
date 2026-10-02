@@ -2,16 +2,16 @@
 class Wirescale < Formula
   desc "wirescale — hub-and-spoke VPN: daemon (wirescaled) + CLI (wirescale)"
   homepage "https://github.com/wirescale"
-  version "0.0.3.10"
+  version "0.0.3.11"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-0.0.3.10-darwin-arm64.tar.gz"
-      sha256 "5a50c272f94d82525e652907b82874cedc99f36a0a5c4a6eaa1799d844121183"
+      url "https://tap.wirescale.org/wirescale-0.0.3.11-darwin-arm64.tar.gz"
+      sha256 "8fc36caad09a23d3cf92e5c9c972118684ed29264e6d98f643f996c9da4fa8f3"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-0.0.3.10-darwin-amd64.tar.gz"
-      sha256 "d705dadd323d855256137fc2b16351a896be4c02e0df492d228ae00efc14de34"
+      url "https://tap.wirescale.org/wirescale-0.0.3.11-darwin-amd64.tar.gz"
+      sha256 "73e78dfeaabfdcee84da7063af64ed831fd4205c8f76e5d3aa11ee8f6099db25"
     end
   end
 
@@ -27,7 +27,7 @@ class Wirescale < Formula
   end
 
   def install
-    bin.install "wirescaled", "wirescale", "wirescale-service-undo"
+    bin.install "wirescaled", "wirescale"
 
     # shell completion (bash/zsh/fish) — системные каталоги, подхватываются
     # автоматически без правок в ~/.bashrc и ~/.zshrc.
@@ -43,12 +43,6 @@ class Wirescale < Formula
 
       The daemon (wirescaled) requires root. Start it with Homebrew services:
         sudo brew services start wirescale
-        sudo wirescale-service-undo
-
-      `sudo brew services start` chowns some keg paths root:admin (sticky) so
-      the user cannot replace the daemon binary. wirescale-service-undo returns
-      ownership to your user, so brew upgrade/uninstall work without sudo rm.
-
       Before uninstalling, stop the service first (brew uninstall does not):
         sudo brew services stop wirescale
         brew uninstall wirescale
