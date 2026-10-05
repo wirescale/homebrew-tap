@@ -1,4 +1,4 @@
-# homebrew-wirescale
+# homebrew-tap
 
 Homebrew tap для [wirescale](https://github.com/wirescale) — hub-and-spoke VPN
 (демон `wirescaled` + CLI `wirescale`). Prebuilt bottle: бинарники для
@@ -7,7 +7,7 @@ macOS amd64/arm64 раздаются с `https://tap.wirescale.org/`.
 ## Установка
 
 ```sh
-brew tap wirescale/wirescale
+brew tap wirescale/tap
 brew install wirescale
 ```
 
