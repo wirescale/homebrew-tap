@@ -2,7 +2,7 @@
 class WirescaleUi < Formula
   desc "menu-bar клиент wirescale (Tauri v2 + Svelte 5)"
   homepage "https://github.com/wirescale"
-  version "0.1.0.29"
+  version "0.1.0.30"
 
   # Сборка GUI пока только под Apple Silicon (aarch64-apple-darwin).
   depends_on arch: :arm64
@@ -10,8 +10,8 @@ class WirescaleUi < Formula
   depends_on "wirescale"
 
   on_macos do
-    url "https://tap.wirescale.org/wirescale-ui-0.1.0.29-darwin-arm64.tar.gz"
-    sha256 "d8f0dfd8fd6caed39c433d4871b1014020740c9b4b95eab3c7c995a9c0becc9e"
+    url "https://tap.wirescale.org/wirescale-ui-0.1.0.30-darwin-arm64.tar.gz"
+    sha256 "cf95abfa8592b1bfac0d891ff2c448c14d8203c7a6e98e35dc9021ef04d6bd1c"
   end
 
   def install
