@@ -2,17 +2,17 @@
 class Wirescale < Formula
   desc "wirescale — hub-and-spoke VPN: daemon (wirescaled) + CLI (wirescale)"
   homepage "https://github.com/wirescale"
-  version "0.0.5.5"
-  conflicts_with "wirescale-agent", because: "wirescale and wirescale-agent are alternative packages"
+  version "0.0.5.6"
+    conflicts_with "wirescale-agent", because: "wirescale and wirescale-agent are alternative packages"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-0.0.5.5-darwin-arm64.tar.gz"
-      sha256 "9b64131e4d75fda91768fb7c18a51e5ee1d9a08104ec2abb1c040407b09027fa"
+      url "https://tap.wirescale.org/wirescale-0.0.5.6-darwin-arm64.tar.gz"
+      sha256 "37fcd0f43dbcf66f9622ad82ef7a1d07b72c3a197faa6a62c799e6499959fcb6"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-0.0.5.5-darwin-amd64.tar.gz"
-      sha256 "62eab7e0e2df52a89df3bce9073ecd670b3bf7ce3eae2f9327549f99eaa07afa"
+      url "https://tap.wirescale.org/wirescale-0.0.5.6-darwin-amd64.tar.gz"
+      sha256 "9ae6462daaf9cf35497c1b773906c0ac62fd7b77cab4e1451273c7dc0660bb5c"
     end
   end
 

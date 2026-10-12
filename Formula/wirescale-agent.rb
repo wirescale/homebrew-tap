@@ -2,17 +2,17 @@
 class WirescaleAgent < Formula
   desc "wirescale — userspace spoke daemon (wirescale-agent) + CLI (wirescale)"
   homepage "https://github.com/wirescale"
-  version "0.0.5.5"
-  conflicts_with "wirescale", because: "wirescale and wirescale-agent are alternative packages"
+  version "0.0.5.6"
+    conflicts_with "wirescale", because: "wirescale and wirescale-agent are alternative packages"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-agent-0.0.5.5-darwin-arm64.tar.gz"
-      sha256 "7dfedf1678b9c054ae55e1bb83dbd9f3776a5d04ad1269baede2644c3745528f"
+      url "https://tap.wirescale.org/wirescale-agent-0.0.5.6-darwin-arm64.tar.gz"
+      sha256 "6088bf263b4308c6501e0359e88fe65003942c5ffbba0b67386ec7ef64e3af33"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-agent-0.0.5.5-darwin-amd64.tar.gz"
-      sha256 "e1be85b63d1f3c556c477e4bbdfa09c092fdeeebb5b898317b8658edcc70c4f8"
+      url "https://tap.wirescale.org/wirescale-agent-0.0.5.6-darwin-amd64.tar.gz"
+      sha256 "f9ca44b606223439c57c841e6c6372fd8ca9d670ac8b887498fb71b0fad5648d"
     end
   end
 
