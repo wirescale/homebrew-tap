@@ -2,17 +2,17 @@
 class WirescaleAgentUnstable < Formula
   desc "wirescale — userspace spoke daemon (wirescale-agent) + CLI (wirescale) (unstable/dev channel)"
   homepage "https://github.com/wirescale"
-  version "0.0.6.dev8"
+  version "0.0.6.dev9"
     conflicts_with "wirescale-agent", "wirescale-unstable", because: "wirescale-agent and wirescale-agent-unstable are alternative packages"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-agent-0.0.6.dev8-darwin-arm64.tar.gz"
-      sha256 "f0b2a98c22e2ba82af9dd86b21ff836e3769655fa312cf6d2d8e5f7bec17d31b"
+      url "https://tap.wirescale.org/wirescale-agent-0.0.6.dev9-darwin-arm64.tar.gz"
+      sha256 "c281fb31be51bdef243868baaf6fac27ad6bcdf980a7997959c44c3168cbe47f"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-agent-0.0.6.dev8-darwin-amd64.tar.gz"
-      sha256 "513c9b2bcc6b21ae11d34bf6b49e71b8f010d25889a3f4193d8afaf97f39c2d4"
+      url "https://tap.wirescale.org/wirescale-agent-0.0.6.dev9-darwin-amd64.tar.gz"
+      sha256 "39f74868889cc8d7a9eab494ec612da6126e9afec1d39cf763c51e7a55c06934"
     end
   end
 
