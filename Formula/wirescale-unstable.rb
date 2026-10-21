@@ -2,17 +2,17 @@
 class WirescaleUnstable < Formula
   desc "wirescale — hub-and-spoke VPN: daemon (wirescaled) + CLI (wirescale) (unstable/dev channel)"
   homepage "https://github.com/wirescale"
-  version "0.0.6.dev14"
+  version "0.0.6.dev15"
     conflicts_with "wirescale", "wirescale-agent-unstable", because: "wirescale and wirescale-unstable are alternative packages"
 
   on_macos do
     on_arm do
-      url "https://tap.wirescale.org/wirescale-0.0.6.dev14-darwin-arm64.tar.gz"
-      sha256 "418a5763384f3ac92d99594ccd84c77165d46e8dba7ace95e037ba6dcc1c7982"
+      url "https://tap.wirescale.org/wirescale-0.0.6.dev15-darwin-arm64.tar.gz"
+      sha256 "e3d92528ab7c647b160c561985fdc4d51005295e6c25433ad74afa36c366ea57"
     end
     on_intel do
-      url "https://tap.wirescale.org/wirescale-0.0.6.dev14-darwin-amd64.tar.gz"
-      sha256 "7f81393dd61e8b2ad4f3e89f472c6411979063e55ac0fdd27e15f9a8ba21819b"
+      url "https://tap.wirescale.org/wirescale-0.0.6.dev15-darwin-amd64.tar.gz"
+      sha256 "2f32d4289528f39850ba5f7a2c8a016e5a374b7fa55ab3b243bbb70b453e68cc"
     end
   end
 
